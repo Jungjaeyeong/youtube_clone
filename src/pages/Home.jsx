@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { getVideoListAPI } from '../apis';
+import { HomeContainer } from './Home.styled';
 
 const Home = () => {
   const [value, setValue] = useState('');
@@ -20,28 +21,32 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <input value={value} onChange={(e) => setValue(e.target.value)} />
-        <button type="submit">검색</button>
+    <HomeContainer>
+      <form className="formbox" onSubmit={onSubmit}>
+        <input className="searchbox" value={value} onChange={(e) => setValue(e.target.value)} />
+        <button className="enterbtn" type="submit">
+          검색
+        </button>
       </form>
       <br />
       {loading ? (
         <span>Loading...</span>
       ) : (
         list?.map((item, idx) => (
-          <div key={idx}>
-            <h2>
-              <a href={item.url} target="_blank" rel="noreferrer">
-                {item.title}
-              </a>
-            </h2>
-            <span>{item.author}</span>
-            <img src={item.thumbnail} alt="" style={{ wdith: '320px' }} />
+          <div className="content" key={idx}>
+            <img src={item.thumbnail} alt="" />
+            <div className="content-txt">
+              <h2>
+                <a href={item.url} target="_blank" rel="noreferrer">
+                  {item.title}
+                </a>
+              </h2>
+              <span>{item.author}</span>
+            </div>
           </div>
         ))
       )}
-    </div>
+    </HomeContainer>
   );
 };
 
